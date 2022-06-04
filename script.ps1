@@ -7,6 +7,6 @@ Remove-SmbShare -Name 'D' -Force
 New-SmbShare -Path D:\\ -Name 'D' -FullAccess Everyone
 
 Remove-LocalUser 'Visitor'
-$secureString = ConvertTo-SecureString "sdfc" -AsPlainText -Force
+$secureString = ConvertTo-SecureString "1234" -AsPlainText -Force
 New-LocalUser 'Visitor' -Password $secureString
 Add-LocalGroupMember -Group 'Guests' -Member 'Visitor'
