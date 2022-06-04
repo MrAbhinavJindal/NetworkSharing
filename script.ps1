@@ -1,4 +1,4 @@
-Remove-LocalUser 'Visitor'
-$GuestPassword = Read-Host -AsSecureString
-New-LocalUser 'Visitor' -Password $GuestPassword
-Add-LocalGroupMember -Group 'Guests' -Member 'Visitor'
+$Acl = Get-Acl "D:\"
+$Ar = New-Object System.Security.AccessControl.FileSystemAccessRule('Everyone', 'FullControl', 'ContainerInherit,ObjectInherit', 'None', 'Allow')
+$Acl.SetAccessRule($Ar)
+Set-Acl 'D:\' $Acl
