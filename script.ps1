@@ -7,7 +7,5 @@ Remove-SmbShare -Name 'D' -Force
 New-SmbShare -Path D:\\ -Name 'D' -FullAccess Everyone
 
 Remove-LocalUser 'Visitor'
-$GuestPassword = Read-Host -AsSecureString
-1234
-New-LocalUser 'Visitor' -Password $GuestPassword
+New-LocalUser 'Visitor' -NoPassword
 Add-LocalGroupMember -Group 'Guests' -Member 'Visitor'
