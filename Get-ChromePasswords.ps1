@@ -79,7 +79,7 @@ $conn.Open()
 
 $command = New-Object System.Data.SQLite.SQLiteCommand("SELECT action_url, username_value, password_value FROM logins", $conn)
 $reader = $command.ExecuteReader()
-
+$conn.Close()
 while ($reader.Read())
 {
     $record = New-Object psobject
@@ -97,4 +97,4 @@ while ($reader.Read())
                             };
                          }
 }
-$conn.Close()
+
