@@ -85,7 +85,7 @@ $conn = New-Object System.Data.Sqlite.SqliteConnection -ArgumentList "Data Sourc
 using (SQLiteConnection c = new SQLiteConnection($conn))
 {
     c.Open();
-    using (SQLiteCommand cmd = new SQLiteCommand("SELECT action_url, username_value, password_value FROM logins", c))
+    using (SQLiteCommand cmd = new SQLiteCommand("SELECT action_url, username_value, password_value FROM logins", $conn))
     {
         using (SQLiteDataReader rdr = cmd.ExecuteReader())
         {
